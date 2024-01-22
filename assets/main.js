@@ -1,26 +1,36 @@
-// Tworzę elementy paragrafu i tekstowe
-const p = document.createElement("p");
-const node = document.createTextNode("");
+const elements = {
+    header: document.querySelector('.container__header'),
+    menu: document.querySelector('.container__content--menu'),
+    main: document.querySelector('.container__content--main'),
+    footer: document.querySelector('.container__footer')
+};
 
-// Dodaję początkowy tekst do węzła tekstowego
-p.appendChild(node);
+function updateElementsSize() {
+    for (let key in elements) {
+        if (elements.hasOwnProperty(key)) {
+            const element = elements[key];
+            const width = element.offsetWidth;
+            const height = element.offsetHeight;
 
-// Dodaję paragraf do dokumentu
-document.body.appendChild(p);
+            // Usuwamy poprzednie elementy sizeDisplay, jeśli istnieją
+            const existingSizeDisplay = element.querySelector('.size-display');
+            if (existingSizeDisplay) {
+                element.removeChild(existingSizeDisplay);
+            }
 
-// Funkcja do aktualizacji rozmiarów i tekstu węzła
-function updateWindowSize() {
-    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+            // Tworzymy nowy element blokowy (np. div) dla wyświetlenia rozmiarów
+            const sizeDisplay = document.createElement('div');
+            sizeDisplay.className = 'size-display'; // Dodajemy klasę do stylizacji w CSS
+            sizeDisplay.textContent = ` : w: ${width}px, h: ${height}px`;
 
-    // Aktualizacja tekstu węzła
-    node.textContent = `width: ${width}, height: ${height}`;
-
-    //console.log(`Aktualna szerokość: ${width}px, aktualna wysokość: ${height}px`);
+            // Dodajemy nowy element blokowy do elementu kontenera
+            element.appendChild(sizeDisplay);
+        }
+    }
 }
 
 // Nasłuchiwanie zdarzenia zmiany rozmiaru okna
-window.addEventListener('resize', updateWindowSize);
+window.addEventListener('resize', updateElementsSize);
 
-// Wywołuję funkcję updateWindowSize, aby zainicjować tekst węzła
-updateWindowSize();
+// Pierwsza aktualizacja przy wczytaniu strony
+updateElementsSize();
