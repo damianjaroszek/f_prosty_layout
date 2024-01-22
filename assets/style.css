@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: gray;
+    color: white;
+    font-size: 24px;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+}
+
+
+/*nasza strona a dokładniej container nie rozszerzy się bardziej niż na 1400px*/
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+    /*żeby wyśrodkować cała stronę gdy szerokość wyświetlacza przekroczy 1400px po bokach pojawą się marginesy, bez tego strona będzie przyklejona do lewej strony okna przeglądarki*/
+}
+
+
+/*wyśrodkowanie (centra x,y) zawartości we wskazanych elementach - w tym przypadku wszystkich*/
+
+.container .container__header,
+.container .container__content--main,
+.container .container__content--menu,
+.container .container__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .container__header {
+    background-color: blue;
+    height: 200px;
+}
+
+.container .container__content--menu {
+    background-color: green;
+    height: 500px;
+}
+
+.container .container__content--main {
+    background-color: brown;
+    height: 500px;
+}
+
+.container .container__footer {
+    background-color: blueviolet;
+    height: 200px;
+}
+
+
+/*Na podstawie orientacji urządzenia będziemy zmieniali tło header*/
+
+
+/* @media screen and (orientation: landscape) {
+    .container .container__header {
+        background-color: yellow;
+    }
+} */
+
+
+/* @media print {
+    .container .container__header {
+        background-color: yellow;
+    }
+} */
+
+
+/*ekran i minimalna szerokość 576px - mamy do czynienia z urządzeniem większym niż telefon*/
+
+
+/* @media screen and (min-width: 576px) {
+    .container .container__header {
+        background-color: yellow;
+    }
+} */
+
+@media screen and (min-width: 576px) {
+    .container .container__header,
+    .container__footer {
+        height: 100px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container .container__header {
+        height: 80px;
+    }
+    .container .container__footer {
+        height: 50px;
+    }
+    /*przy tej szerokości zmień układ __content --> zawiera on _content--menu, _content--main i to pozwoli aby menu było wyświetlone obok main*/
+    .container .container__content {
+        display: flex;
+    }
+    .container .container__content--menu {
+        /*zamiast width*/
+        flex-basis: 200px;
+    }
+    .container .container__content--main {
+        /*żeby element wypełniał automatycznie całą szerokość*/
+        flex-grow: 1;
+    }
+}
