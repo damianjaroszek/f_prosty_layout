@@ -1,105 +1,160 @@
+:root {
+    --color-primary: rgb(59, 59, 59);
+    /*deklaracje zmiennych*/
+    --color-secondary: rgb(39, 40, 46);
+    --color-white: rgb(255, 255, 255);
+    --color-blue: rgb(0, 119, 255);
+}
+
 body {
     margin: 0;
     padding: 0;
-    background-color: gray;
-    color: white;
-    font-size: 24px;
-    print-color-adjust: exact !important;
-    -webkit-print-color-adjust: exact !important;
+    background-color: var(--color-primary);
+    /*wykorzystanie zmiennej*/
+    color: var(--color-white);
 }
 
-
-/*nasza strona a dokładniej container nie rozszerzy się bardziej niż na 1400px*/
-
-.container {
-    max-width: 1400px;
-    margin: auto;
-    /*żeby wyśrodkować cała stronę gdy szerokość wyświetlacza przekroczy 1400px po bokach pojawą się marginesy, bez tego strona będzie przyklejona do lewej strony okna przeglądarki*/
-}
-
-
-/*wyśrodkowanie (centra x,y) zawartości we wskazanych elementach - w tym przypadku wszystkich*/
-
-.container .container__header,
-.container .container__content--main,
-.container .container__content--menu,
-.container .container__footer {
+.container__header {
+    background-color: var(--color-secondary);
+    /*przyklejenie do góry przeglądarki elementu tak, że po scrolowaniu jest on nadal na górze*/
+    position: fixed;
+    /*dodanie umiejscowienia*/
+    top: 0;
+    /*dodanie umiejscowienia*/
+    left: 0;
+    height: 60px;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    /*góra dół y*/
     align-items: center;
+    /*lewo prawo x*/
+    justify-content: end;
+    /*padding top i bottom, left i right*/
+    /*padding: 0, 18px;* przy dodaniu flexa nie nada nam się padding, dodaj margin right w elemencie podrzędnym*/
 }
 
-.container .container__header {
-    background-color: blue;
-    height: 200px;
+.container__content {
+    /*bez paddingu = height header czyli 60px content będzie nachodził na header - jeden na drugim*/
+    padding-top: 78px;
+    padding-left: 18px;
+    height: 1500px;
 }
 
-.container .container__content--menu {
-    background-color: green;
-    height: 500px;
+.container__header--avatar {
+    border-radius: 50%;
+    /*zdjęcie jest przezroczyste - png więc background color będzie widoczny*/
+    background-color: var(--color-blue);
+    margin-right: 18px;
 }
 
-.container .container__content--main {
-    background-color: brown;
-    height: 500px;
+.container__menu {
+    background-color: var(--color-secondary);
+    width: 250px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 25px;
+    /*przyklejanie menu stick*/
+    position: fixed;
+    top: 0;
+    /*schowanie menu za obszar roboczy, 250px bo mamy width na 250px */
+    left: -250px;
+    transition: 0.5s ease-in-out;
 }
 
-.container .container__footer {
-    background-color: blueviolet;
-    height: 200px;
+.container__menu ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.container__menu ul li {
+    padding: 5px 0;
 }
 
 
-/*Na podstawie orientacji urządzenia będziemy zmieniali tło header*/
+/*klasa nadpisująca parametr left klasy container__menu, który wynosi left:-250px*/
+
+.container__menu.open {
+    left: 0px;
+    /*przy otwieraniu menu delikatne slow motion*/
+    transition: 0.5s ease-in-out;
+}
+
+a {
+    /*dzidzicznie koloru po rodzicu */
+    color: inherit;
+    text-decoration: none;
+}
+
+.container__hamburger {
+    /* z-index: 1; */
+    height: 24px;
+    width: 24px;
+    /*tutaj już nie użyjemy flex do pozycjonowania, musimy to nadać ręcznie*/
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    /*usuwanie koloru*/
+    background-color: transparent;
+    border: 0;
+    /*dodanie paska do hamburgera 1 z 3*/
+    border-bottom: 4px solid var(--color-white);
+    transition: 0.5s ease-in-out;
+}
 
 
-/* @media screen and (orientation: landscape) {
-    .container .container__header {
-        background-color: yellow;
-    }
-} */
+/*after i before służą do dodania czegoś ekstra do głównej klasy czyli w tym przypadku .container__hamburger
+czyli jak mamy <button class="container__hamburger">X</button> w nim X
+to dodanie 
 
+.container__hamburger::before {
+    content: 'before';
+    color: white;
+}
 
-/* @media print {
-    .container .container__header {
-        background-color: yellow;
-    }
-} */
+.container__hamburger::after {
+    content: 'after';
+    color: white;
+}
 
+da wynik beforeXafter czyli dodaliśmy do X before i after
 
-/*ekran i minimalna szerokość 576px - mamy do czynienia z urządzeniem większym niż telefon*/
+*/
 
+.container__hamburger::before,
+.container__hamburger::after {
+    content: '';
+    background-color: var(--color-white);
+    width: 100%;
+    height: 4px;
+    /*aby zadziałała pozycja absolutna na rodzicu musimy mieć relative, fixed, absolute, rodzicem jest .container__hamburger więc mamy fixed*/
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
-/* @media screen and (min-width: 576px) {
-    .container .container__header {
-        background-color: yellow;
-    }
-} */
+.container__hamburger::before {
+    /*paski są na tej samej wysokości więc musimy before lub after przesunąć względem siebie */
+    top: 10px;
+}
+
+.container__hamburger.open {
+    left: 268px;
+    /*przy otwieraniu menu delikatne slow motion*/
+    transition: 0.5s ease-in-out;
+}
 
 @media screen and (min-width: 576px) {
-    .container .container__header,
-    .container__footer {
-        height: 100px;
+    .container__menu {
+        left: 0;
+        transition: none;
     }
-}
-
-@media screen and (min-width: 768px) {
-    .container .container__header {
-        height: 80px;
+    /*usuwanie elementu usuwanie klasy*/
+    .container__hamburger {
+        display: none;
     }
-    .container .container__footer {
-        height: 50px;
-    }
-    /*przy tej szerokości zmień układ __content --> zawiera on _content--menu, _content--main i to pozwoli aby menu było wyświetlone obok main*/
-    .container .container__content {
-        display: flex;
-    }
-    .container .container__content--menu {
-        /*zamiast width*/
-        flex-basis: 200px;
-    }
-    .container .container__content--main {
-        /*żeby element wypełniał automatycznie całą szerokość*/
-        flex-grow: 1;
+    .container__content {
+        margin-left: 250px;
     }
 }

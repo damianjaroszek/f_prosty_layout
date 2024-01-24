@@ -2,23 +2,49 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="assets/style.css" />
-    <!-- 01. aby strona była responsywna należy dodać meta tagi width=device-width - dopasowanie treści do szerokości urządzenia, initial-scale=1.0 - wymuszanie w przeglądarce wyświetlania strony na 1 - zawsze pokazywana w pełnej skali niezależnie od urządzenia -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kurs flexbox</title>
+    <title>Kurs flexbox - hamburger</title>
   </head>
-
-  <!-- 02. aby strona była responsywna należy dodać media queries w css -->
 
   <body>
     <div class="container">
-      <header class="container__header">header</header>
-      <div class="container__content">
-        <aside class="container__content--menu">menu</aside>
-        <main class="container__content--main">main</main>
+      <div class="container__header">
+        <img
+          src="assets/images/avatar.png"
+          width="40px"
+          height="40px"
+          class="container__header--avatar"
+        />
+        <button class="container__hamburger"></button>
+        <nav class="container__menu">
+          MENU
+          <ul>
+            <li>
+              <a href="https://google.com/" target="_blank">Google</a>
+            </li>
+            <li>
+              <a href="https://google.com/" target="_blank">Google</a>
+            </li>
+            <li>
+              <a href="https://google.com/" target="_blank">Google</a>
+            </li>
+            <li>
+              <a href="https://google.com/" target="_blank">Google</a>
+            </li>
+            <li>
+              <a href="https://google.com/" target="_blank">Google</a>
+            </li>
+            <li>
+              <a href="https://google.com/" target="_blank">Google</a>
+            </li>
+            <li>
+              <a href="https://google.com/" target="_blank">Google</a>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <footer class="container__footer">footer</footer>
+      <div class="container__content">Content</div>
     </div>
-
     <script type="text/javascript" src="assets/main.js"></script>
   </body>
 </html>
