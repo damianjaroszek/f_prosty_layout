@@ -4,6 +4,7 @@
     --color-secondary: rgb(39, 40, 46);
     --color-white: rgb(255, 255, 255);
     --color-blue: rgb(0, 119, 255);
+    --color-black: rgb(0, 0, 0);
 }
 
 body {
@@ -37,7 +38,36 @@ body {
     /*bez paddingu = height header czyli 60px content będzie nachodził na header - jeden na drugim*/
     padding-top: 78px;
     padding-left: 18px;
-    height: 1500px;
+    padding-right: 18px;
+    /* height: 1500px; */
+    /*będziemy zawartość content ustawiać dzięki flex*/
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    justify-content: space-evenly;
+}
+
+.container__content__item {
+    flex-basis: 350px;
+    height: 220px;
+    border-radius: 4px;
+    background-color: var(--color-blue);
+}
+
+.container__content__image {
+    height: 190px;
+    width: 100%;
+    background-image: url('./images/ocean.jpg');
+    /*najlepsze rozwiązanie żeby wypełnić cały div obrazem, nie pojawi się repeat ani czarne paski, zdjęcie może być trochę ucinane*/
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px 4px 0 0;
+}
+
+.container__content__description {
+    padding-top: 6px;
+    text-align: center;
+    font-size: small;
 }
 
 .container__header--avatar {
